@@ -6,19 +6,19 @@ block contenido
         form(name="p" action="/admin/users" , method="POST" enctype="multipart/form-data")
             div(class = "form-group")
                 label(for="cedula") Cedula
-                input(type = "text", name = "cedula",placeholder = "cedula",id="cedula", class = "form-control")
+                input(type = "text", name = "cedula",placeholder = "cedula",id="cedula", class = "form-control" required="")
             div
                 label(for="nombre") Nombre
-                input(type = "text", name = "nombre",id = "nombre" class = "form-control")
+                input(type = "text", name = "nombre",id = "nombre" class = "form-control" required="")
             div
                 label(for="nombre") telefono
-                input(type = "text", name = "telefono",id = "telefono" class = "form-control")
+                input(type = "text", name = "telefono",id = "telefono" class = "form-control" required="")
             div
                 label(for="nombre") username
-                input(type = "text", name = "username",id = "username" class = "form-control")
+                input(type = "text", name = "username",id = "username" class = "form-control" required="")
             div
                 label(for="nombre") password
-                input(type = "text", name = "password",id = "password" class = "form-control")
+                input(type = "text", name = "password",id = "password" class = "form-control" required="")
             div
                 select(class="form-control" name="tipo",id="tipo")
                         option(value="diseñador") diseñador

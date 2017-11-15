@@ -2,8 +2,8 @@ extends ./layout.pug
 
 block contenido
     .col-md-8.removeFloat.center-block.text-center.TopSpace
-        h1 Nuevo Trabajador
-        form(name="p" action="/admin/bills" , method="POST" enctype="multipart/form-data")
+        h1 Nuevo Proveedor
+        form(name="p" action="/admin/cuenta" , method="POST" enctype="multipart/form-data")
             div(class = "form-group")
                 label(for="cedula") RUT
                 input(type = "text", name = "rut",placeholder = "rut",id="rut", class = "form-control")

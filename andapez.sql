@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 15-11-2017 a las 15:02:06
--- Versión del servidor: 5.7.17-log
--- Versión de PHP: 5.6.30
+-- Host: 127.0.0.1
+-- Generation Time: Nov 15, 2017 at 11:27 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `andapez`
+-- Database: `andapez`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `calzado`
+-- Table structure for table `calzado`
 --
 
 CREATE TABLE `calzado` (
@@ -35,7 +35,7 @@ CREATE TABLE `calzado` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `corte`
+-- Table structure for table `corte`
 --
 
 CREATE TABLE `corte` (
@@ -47,7 +47,7 @@ CREATE TABLE `corte` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuentas`
+-- Table structure for table `cuentas`
 --
 
 CREATE TABLE `cuentas` (
@@ -57,22 +57,29 @@ CREATE TABLE `cuentas` (
   `valor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `cuentas`
+--
+
+INSERT INTO `cuentas` (`id`, `idProv`, `idMat`, `valor`) VALUES
+(3, 1, 1, 100);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `material`
+-- Table structure for table `material`
 --
 
 CREATE TABLE `material` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(20) COLLATE latin1_spanish_ci NOT NULL
+  `name` varchar(20) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Volcado de datos para la tabla `material`
+-- Dumping data for table `material`
 --
 
-INSERT INTO `material` (`id`, `nombre`) VALUES
+INSERT INTO `material` (`id`, `name`) VALUES
 (1, 'PVC'),
 (2, 'neolite'),
 (3, 'cuero'),
@@ -81,7 +88,7 @@ INSERT INTO `material` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proveedor`
+-- Table structure for table `proveedor`
 --
 
 CREATE TABLE `proveedor` (
@@ -94,22 +101,20 @@ CREATE TABLE `proveedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Volcado de datos para la tabla `proveedor`
+-- Dumping data for table `proveedor`
 --
 
 INSERT INTO `proveedor` (`id`, `RUT`, `nombre`, `direccion`, `tel`, `ciudad`) VALUES
 (1, 15487, 'prov1', 'dhokjjoja', 12345, 'Cali'),
 (2, 15487897, 'SuelasA', 'mz c cs 4878', 7878978, 'cali'),
-(3, 15487897, 'SuelasA', 'mz c cs 4878', 7878978, 'cali'),
-(4, 0, '', '', 0, ''),
-(5, 0, '', '', 0, ''),
-(6, 0, '', '', 0, ''),
-(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali');
+(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali'),
+(9, 0, 'undefined', 'undefined', 0, 'undefined'),
+(10, 0, 'undefined', 'undefined', 0, 'undefined');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `suelas`
+-- Table structure for table `suelas`
 --
 
 CREATE TABLE `suelas` (
@@ -121,7 +126,7 @@ CREATE TABLE `suelas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -137,7 +142,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`DNI`, `nombre`, `usertype`, `tel`, `username`, `password`, `diseños`, `pares`, `refcalzado`) VALUES
@@ -146,11 +151,11 @@ INSERT INTO `usuarios` (`DNI`, `nombre`, `usertype`, `tel`, `username`, `passwor
 (1239884776, 'German', 'obrero', 3157484, 'gg', '1212', NULL, NULL, NULL);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `calzado`
+-- Indexes for table `calzado`
 --
 ALTER TABLE `calzado`
   ADD PRIMARY KEY (`ref`),
@@ -159,7 +164,7 @@ ALTER TABLE `calzado`
   ADD KEY `ref` (`ref`) USING BTREE;
 
 --
--- Indices de la tabla `corte`
+-- Indexes for table `corte`
 --
 ALTER TABLE `corte`
   ADD PRIMARY KEY (`id`),
@@ -167,25 +172,25 @@ ALTER TABLE `corte`
   ADD KEY `idProv` (`idProv`);
 
 --
--- Indices de la tabla `cuentas`
+-- Indexes for table `cuentas`
 --
 ALTER TABLE `cuentas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `material`
+-- Indexes for table `material`
 --
 ALTER TABLE `material`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `proveedor`
+-- Indexes for table `proveedor`
 --
 ALTER TABLE `proveedor`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `suelas`
+-- Indexes for table `suelas`
 --
 ALTER TABLE `suelas`
   ADD PRIMARY KEY (`id`),
@@ -193,42 +198,42 @@ ALTER TABLE `suelas`
   ADD KEY `idMaterial` (`idMaterial`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`DNI`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `calzado`
+-- AUTO_INCREMENT for table `calzado`
 --
 ALTER TABLE `calzado`
   MODIFY `ref` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `corte`
+-- AUTO_INCREMENT for table `corte`
 --
 ALTER TABLE `corte`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `cuentas`
+-- AUTO_INCREMENT for table `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de la tabla `material`
+-- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de la tabla `proveedor`
+-- AUTO_INCREMENT for table `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT de la tabla `suelas`
+-- AUTO_INCREMENT for table `suelas`
 --
 ALTER TABLE `suelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

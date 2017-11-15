@@ -5,7 +5,7 @@ const mysql = require("mysql")
 const con =mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "usuarioutp",
+    password: "",
     database :"andapez"
 })
 
@@ -67,13 +67,46 @@ router.route("/users").get(function(req,res) {
     });
     res.redirect("/admin/users");
 });
-
-
+//Cuentas
+router.get("/bills/:id/edit",function(req,res){
+    let sql = "SELECT * FROM cuentas WHERE cuentas.id=?";
+    con.query(sql,[req.params.id],function(err,result){
+        if(err) throw err;
+        else{
+            res.render("admin/bills/edit",{bills:result});
+        }
+    }); 
+});
+router.route("/bills/:id").put(function(req,res){
+    let sql="UPDATE cuentas SET idProv = ? WHERE cuentas.id = ?";
+    con.query(sql,[req.params.nombre,req.params.nombre],function(err,result){
+        if(err) throw err;
+        else{
+            res.redirect("/admin/bills");
+        }
+    });
+}).delete(function(req,res){
+    let sql ="DELETE FROM cuentas WHERE cuentas.id =?";
+    con.query(sql,[req.params.id],function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/bills");
+    });
+});
 router.get("/bills/newP",function(req,res) {
     res.render("admin/bills/newP");
 });
+router.get("/bills/newC",function(req,res) {
+    res.render("admin/bills/newC");
+});
+router.post("/cuenta",function(req,res){
+    let sql = "INSERT INTO cuentas (id,idProv,idMat,valor) VALUES(NULL,\'"+req.body.proveedor+'\', \''+req.body.material+"\', \'"+req.body.valor+"\')";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+    });
+    res.redirect("/admin/bills");
+});
 router.route("/bills").get(function(req,res){
-    let sql = "SELECT * FROM cuentas INNER JOIN proveedor on cuentas.idProv=proveedor.rut";
+    let sql = "SELECT cuentas.id , proveedor.nombre , material.name, cuentas.valor FROM (cuentas INNER JOIN material ON material.id=cuentas.idMat) INNER JOIN proveedor ON proveedor.id=cuentas.idProv";
     con.query(sql,function(err,result){
         if(err) throw err;
         else{

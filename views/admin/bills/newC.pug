@@ -1,0 +1,18 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.TopSpace
+        h1 Nueva Cuenta
+        form(name="p" action="/admin/cuenta" , method="POST" enctype="multipart/form-data")
+            div(class = "form-group")
+                label(for="cedula") Proveedor
+                input(type = "text", name = "proveedor",placeholder = "proveedor",id="proveedor", class = "form-control",required="")
+            div
+                label(for="material") Material
+                input(type = "text", name = "material",id = "material" class = "form-control" required="")
+            div
+                label(for="valor") Valor
+                input(type = "text", name = "valor",id = "valor" class = "form-control" required="")
+            div(class="row topSpace")
+                div(class="col-sm-10 col-xs-10 text-left")
+                    input(type = "submit"  value = "Enviar" class = "btn btn-info")
