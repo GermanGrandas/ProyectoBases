@@ -5,7 +5,7 @@ const mysql = require("mysql")
 const con =mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "usuarioutp",
     database :"andapez"
 })
 
@@ -66,5 +66,25 @@ router.route("/users").get(function(req,res) {
         if(err) throw err;
     });
     res.redirect("/admin/users");
+});
+
+
+router.get("/bills/newP",function(req,res) {
+    res.render("admin/bills/newP");
+});
+router.route("/bills").get(function(req,res){
+    let sql = "SELECT * FROM cuentas INNER JOIN proveedor on cuentas.idProv=proveedor.rut";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+        else{
+            res.render("admin/bills/bills",{bills:result});
+        }
+    });
+}).post(function(req,res){
+    let sql ='INSERT INTO `proveedor` (`id`, `RUT`, `nombre`, `direccion`, `tel`, `ciudad`) VALUES (NULL,\''+ req.body.rut+"\', \'"+req.body.nombre+"\', \'"+req.body.direccion+"\', \'"+req.body.telefono+"\', \'"+req.body.ciudad+"\')";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+    });
+    res.redirect("/admin/bills");
 });
 module.exports = router;

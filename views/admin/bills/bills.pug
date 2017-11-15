@@ -1,0 +1,29 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.bigTopSpace
+        .row 
+            .col-md-4
+                h1 Proveedor
+            .col-md-4
+                h1 Material
+            .col-md-4
+                h1 Valor   
+        each x in bills
+            .white.border.tr.large-padding
+                .row
+                    .col-md-5
+                        h2=x.idProv
+                    .col-md-3
+                        h2=x.idMat
+                    .col-md-2
+                        h2=x.valor
+                    .col-md-2               
+                        a(href='/admin/users/'+x.id+'/edit',class= "btn btn-primary") Editar
+                        form(action='/admin/users/'+x.id+'?_method=DELETE' class = "link" method = "POST")
+                            input(type = "submit" value = "eliminar" class="btn btn-danger")
+        .row.bigTopSpace
+            .col-md-4
+                a(href ="/admin/bills/newP",class= "btn btn-default btn-lg") Nuevo Proveedor
+            .col-md-2
+                a(href ="/admin/bills/newC",class= "btn btn-default btn-lg") Nueva Cuenta

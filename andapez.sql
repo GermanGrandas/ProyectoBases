@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2017 a las 13:55:51
--- Versión del servidor: 10.1.28-MariaDB
--- Versión de PHP: 7.1.10
+-- Servidor: localhost
+-- Tiempo de generación: 15-11-2017 a las 15:02:06
+-- Versión del servidor: 5.7.17-log
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -49,6 +47,19 @@ CREATE TABLE `corte` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cuentas`
+--
+
+CREATE TABLE `cuentas` (
+  `id` int(11) NOT NULL,
+  `idProv` int(11) NOT NULL,
+  `idMat` int(11) NOT NULL,
+  `valor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `material`
 --
 
@@ -74,13 +85,26 @@ INSERT INTO `material` (`id`, `nombre`) VALUES
 --
 
 CREATE TABLE `proveedor` (
-  `rut` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `RUT` int(11) NOT NULL,
   `nombre` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `direccion` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `tel` int(11) NOT NULL,
-  `ciudad` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
-  `cuenta` int(11) NOT NULL
+  `ciudad` varchar(15) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `proveedor` (`id`, `RUT`, `nombre`, `direccion`, `tel`, `ciudad`) VALUES
+(1, 15487, 'prov1', 'dhokjjoja', 12345, 'Cali'),
+(2, 15487897, 'SuelasA', 'mz c cs 4878', 7878978, 'cali'),
+(3, 15487897, 'SuelasA', 'mz c cs 4878', 7878978, 'cali'),
+(4, 0, '', '', 0, ''),
+(5, 0, '', '', 0, ''),
+(6, 0, '', '', 0, ''),
+(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali');
 
 -- --------------------------------------------------------
 
@@ -118,7 +142,6 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`DNI`, `nombre`, `usertype`, `tel`, `username`, `password`, `diseños`, `pares`, `refcalzado`) VALUES
 (1, 'Germán', 'administrador', 311321, 'admin', 'root', NULL, NULL, NULL),
-(1232, 'casemir', 'diseñador', 2147483647, 'gg', '111', NULL, NULL, NULL),
 (213123, 'nilson', 'obrero', 1232131, 'nilson', '12345', NULL, 121, 1),
 (1239884776, 'German', 'obrero', 3157484, 'gg', '1212', NULL, NULL, NULL);
 
@@ -144,6 +167,12 @@ ALTER TABLE `corte`
   ADD KEY `idProv` (`idProv`);
 
 --
+-- Indices de la tabla `cuentas`
+--
+ALTER TABLE `cuentas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `material`
 --
 ALTER TABLE `material`
@@ -153,7 +182,7 @@ ALTER TABLE `material`
 -- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`rut`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `suelas`
@@ -178,56 +207,31 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `calzado`
   MODIFY `ref` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `corte`
 --
 ALTER TABLE `corte`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT de la tabla `cuentas`
+--
+ALTER TABLE `cuentas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `rut` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `suelas`
 --
 ALTER TABLE `suelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `calzado`
---
-ALTER TABLE `calzado`
-  ADD CONSTRAINT `calzado_ibfk_1` FOREIGN KEY (`matSuela`) REFERENCES `suelas` (`id`),
-  ADD CONSTRAINT `calzado_ibfk_2` FOREIGN KEY (`matCorte`) REFERENCES `corte` (`id`);
-
---
--- Filtros para la tabla `corte`
---
-ALTER TABLE `corte`
-  ADD CONSTRAINT `corte_ibfk_1` FOREIGN KEY (`idMaterial`) REFERENCES `material` (`id`),
-  ADD CONSTRAINT `corte_ibfk_2` FOREIGN KEY (`idProv`) REFERENCES `proveedor` (`rut`);
-
---
--- Filtros para la tabla `suelas`
---
-ALTER TABLE `suelas`
-  ADD CONSTRAINT `suelas_ibfk_1` FOREIGN KEY (`idProv`) REFERENCES `proveedor` (`rut`);
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
