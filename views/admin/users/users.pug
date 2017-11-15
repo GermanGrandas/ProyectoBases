@@ -1,0 +1,18 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.bigTopSpace
+        .row 
+            .col-md-6
+                h1 Nombre
+            .col-md-4
+                a(href ="/admin/users/new",class= "btn btn-default btn-lg") Nuevo
+        each x in users
+            .white.border.tr.large-padding
+                .row
+                    .col-md-10
+                        h2=x.nombre
+                    .col-md-2               
+                        a(href='/admin/users/'+x.DNI+'/edit',class= "btn btn-primary") Editar
+                        form(action='/admin/users/'+x.DNI+'?_method=DELETE' class = "link" method = "POST")
+                            input(type = "submit" value = "eliminar" class="btn btn-danger")

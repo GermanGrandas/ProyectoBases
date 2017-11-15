@@ -1,0 +1,15 @@
+extends ./layout.pug
+
+block contenido
+    div(class= "col-md-6 removeFloat center-block bigTopSpace")
+        form(action="/sessions" , method="POST")
+            div(class = "form-group")
+                label(for="username") username
+                input(type = "text", name = "username",placeholder = "username",id="username", class = "form-control")
+            div
+                label(for="password") password
+                input(type = "password", name = "password",placeholder="Password" , id = "password" class = "form-control")
+            
+            div(class="row topSpace")
+                div(class="col-sm-10 col-xs-10 text-left")
+                    input(type = "submit"  value = "Iniciar Sesión" class = "btn btn-info")

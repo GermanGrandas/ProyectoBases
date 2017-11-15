@@ -1,0 +1,14 @@
+extends ./layout.pug
+
+block contenido
+    div(class= "col-md-8 removeFloat center-block text-center bigTopSpace")
+        h1 editar trabajador
+        each x in users
+            form(action="/admin/users/"+x.DNI+"?_method=PUT" , method="POST")
+                input(type="hidden" value="PUT" name="_method")
+                div(class = "form-group")
+                    label(for="title") Nombre
+                    input(type = "text", name = "nombre",placeholder = "título de la imagen",id="nombre", class = "form-control" , value =x.nombre)
+                div(class="row topSpace")
+                    div(class="col-sm-10 col-xs-10 text-left")
+                        input(type = "submit"  value = "Guardar" class = "btn btn-info left-block")
