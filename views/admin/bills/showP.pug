@@ -1,0 +1,29 @@
+extends ./layout.pug
+
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.bigTopSpace
+        .row 
+            .col-md-3
+                h1 Nombre
+            .col-md-4
+                h1 Dirección
+            .col-md-3
+                h1 Telefono
+            .col-md-2
+                h1 Ciudad
+        each x in prov
+            .white.border.tr.large-padding
+                .row
+
+                    .col-md-3
+                        h1=x.nombre
+                    .col-md-4
+                        h1=x.direccion
+                    .col-md-3
+                        h1=x.tel
+                    .col-md-2
+                        h1=x.ciudad
+        .row.topSpace
+                .col-md-4
+                    a(href ="/admin/bills",class= "btn btn-default btn-lg") Volver

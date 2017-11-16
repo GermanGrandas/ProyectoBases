@@ -5,7 +5,7 @@ const mysql = require("mysql")
 const con =mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "usuarioutp",
     database :"andapez"
 })
 
@@ -97,6 +97,16 @@ router.get("/bills/newP",function(req,res) {
 });
 router.get("/bills/newC",function(req,res) {
     res.render("admin/bills/newC");
+});
+router.get("/bills/showP",function(req,res){
+    let sql = "SELECT * FROM proveedor";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+        else{
+            res.render("admin/bills/showP",{prov : result});
+        }
+    })
+    
 });
 router.post("/cuenta",function(req,res){
     let sql = "INSERT INTO cuentas (id,idProv,idMat,valor) VALUES(NULL,\'"+req.body.proveedor+'\', \''+req.body.material+"\', \'"+req.body.valor+"\')";

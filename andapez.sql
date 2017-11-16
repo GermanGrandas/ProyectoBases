@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 15, 2017 at 11:27 AM
--- Server version: 10.1.21-MariaDB
+-- Host: localhost
+-- Generation Time: Nov 16, 2017 at 05:11 PM
+-- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -62,7 +62,8 @@ CREATE TABLE `cuentas` (
 --
 
 INSERT INTO `cuentas` (`id`, `idProv`, `idMat`, `valor`) VALUES
-(3, 1, 1, 100);
+(3, 1, 1, 100),
+(5, 2, 4, 10000);
 
 -- --------------------------------------------------------
 
@@ -107,9 +108,7 @@ CREATE TABLE `proveedor` (
 INSERT INTO `proveedor` (`id`, `RUT`, `nombre`, `direccion`, `tel`, `ciudad`) VALUES
 (1, 15487, 'prov1', 'dhokjjoja', 12345, 'Cali'),
 (2, 15487897, 'SuelasA', 'mz c cs 4878', 7878978, 'cali'),
-(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali'),
-(9, 0, 'undefined', 'undefined', 0, 'undefined'),
-(10, 0, 'undefined', 'undefined', 0, 'undefined');
+(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali');
 
 -- --------------------------------------------------------
 
@@ -221,7 +220,7 @@ ALTER TABLE `corte`
 -- AUTO_INCREMENT for table `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `material`
 --
