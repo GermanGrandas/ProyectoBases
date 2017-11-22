@@ -1,0 +1,11 @@
+ADMINISTRADOR:
+username: admin
+password : root
+
+DISEÑADOR
+username: juand
+password : root
+
+OBRERO
+username : nilson
+password : 12345
