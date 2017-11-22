@@ -7,8 +7,18 @@ block contenido
             form(action="/admin/bills/"+x.id+"?_method=PUT" , method="POST")
                 input(type="hidden" value="PUT" name="_method")
                 div(class = "form-group")
-                    label(for="title") Proveedor
-                    input(type = "text", name = "nombre",placeholder = "Nombre",id="nombre", class = "form-control" , value =x.nombre,required="")
+                    label(for="cedula") Proveedor
+                    select(class="form-control" name="proveedor",id="proveedor")
+                        each x in prov
+                            option(value=x.id)=x.nombre
+                div
+                    label(for="material") Material
+                    select(class="form-control" name="material",id="material")
+                        each x in mat
+                            option(value=x.id)=x.name
+                div
+                    label(for="valor") Valor
+                    input(type = "text", name = "valor",id = "valor" class = "form-control" required="")
                 div(class="row topSpace")
                     div(class="col-sm-10 col-xs-10 text-left")
                         input(type = "submit"  value = "Guardar" class = "btn btn-info left-block")

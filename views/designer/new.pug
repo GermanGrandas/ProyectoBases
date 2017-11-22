@@ -1,0 +1,22 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.TopSpace
+        h1 Nuevo Diseño
+        form(name="p" action="/designer/design" , method="POST" enctype="multipart/form-data")
+            div(class = "form-group")
+                label(for="ref") REF
+                input(type = "text", name = "ref",placeholder = "ref",id="ref", class = "form-control" required="")
+            div
+                label(for="nombre") Material Suela
+                select(class="form-control" name="tipoS",id="tipoS")
+                    each x in suela
+                        option(value=x.id)=x.materialS
+            div
+                label(for="nombre") Material Corte
+                select(class="form-control" name="tipoC",id="tipoC")
+                        each x in corte
+                            option(value=x.id)=x.materialC
+            div(class="row topSpace")
+                div(class="col-sm-10 col-xs-10 text-left")
+                    input(type = "submit"  value = "Enviar" class = "btn btn-info")

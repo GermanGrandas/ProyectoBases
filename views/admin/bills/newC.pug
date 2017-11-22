@@ -6,10 +6,14 @@ block contenido
         form(name="p" action="/admin/cuenta" , method="POST" enctype="multipart/form-data")
             div(class = "form-group")
                 label(for="cedula") Proveedor
-                input(type = "text", name = "proveedor",placeholder = "proveedor",id="proveedor", class = "form-control",required="")
+                select(class="form-control" name="proveedor",id="proveedor")
+                    each x in prov
+                        option(value=x.id)=x.nombre
             div
                 label(for="material") Material
-                input(type = "text", name = "material",id = "material" class = "form-control" required="")
+                select(class="form-control" name="material",id="material")
+                    each x in mat
+                        option(value=x.id)=x.name
             div
                 label(for="valor") Valor
                 input(type = "text", name = "valor",id = "valor" class = "form-control" required="")

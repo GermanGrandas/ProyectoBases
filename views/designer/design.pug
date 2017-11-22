@@ -1,0 +1,29 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.bigTopSpace
+        .row 
+            .col-md-3
+                h1 REF
+            .col-md-4
+                h1 Material Suela
+            .col-md-3
+                h1 Material Corte   
+        each x in d
+            .white.border.tr.large-padding
+                .row
+                    .col-md-3
+                        h2=x.ref
+                    .col-md-4
+                        h2=x.materialS
+                    .col-md-3
+                        h2=x.materialC
+                    .col-md-1             
+                        a(href='/designer/design/'+x.id+'/edit',class= "btn btn-primary") Editar
+                        form(action='/designer/design/'+x.id+'?_method=DELETE' class = "link" method = "POST")
+                            input(type = "submit" value = "eliminar" class="btn btn-danger")
+        .row.topSpace
+            .col-md-6
+                a(href ="/designer/new",class= "btn btn-default btn-lg") Nuevo Diseño
+            .col-md-6
+                a(href ="/designer/newM",class= "btn btn-default btn-lg") Nuevo Material

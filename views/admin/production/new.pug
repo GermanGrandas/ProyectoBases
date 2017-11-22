@@ -1,0 +1,17 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.TopSpace
+        h1 Nueva Tarea
+        form(name="p" action="/admin/produccion" , method="POST" enctype="multipart/form-data")
+            div(class = "form-group")
+                label(for="ref") REF
+                select(class="form-control" name="ref",id="ref")
+                    each x in calzado
+                        option(value=x.ref)=x.ref
+            div
+                label(for="cant") Cantidad
+                input(type = "text", name = "cant",id = "cant" class = "form-control" required="")
+            div(class="row topSpace")
+                div(class="col-sm-10 col-xs-10 text-left")
+                    input(type = "submit"  value = "Enviar" class = "btn btn-info")

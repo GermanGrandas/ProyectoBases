@@ -1,0 +1,24 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.TopSpace
+        h1 Nuevo Diseño
+        each x in d
+            form(name="p" action="/designer/design/"+x.id+"?_method=PUT" , method="POST")
+                input(type="hidden" value="PUT" name="_method")
+                div(class = "form-group")
+                    label(for="ref") REF
+                    input(type = "text", name = "ref",placeholder = "ref",id="ref", class = "form-control" required="")
+                div
+                    label(for="nombre") Material Suela
+                    select(class="form-control" name="tipoS",id="tipoS")
+                            option(value="PVC") PVC
+                            option(value="neolite") NEOLITE
+                div
+                    label(for="nombre") Material Corte
+                    select(class="form-control" name="tipoC",id="tipoC")
+                            option(value="cuero") CUERO
+                            option(value="sintetico") SINTETICO
+                div(class="row topSpace")
+                    div(class="col-sm-10 col-xs-10 text-left")
+                        input(type = "submit"  value = "Enviar" class = "btn btn-info")

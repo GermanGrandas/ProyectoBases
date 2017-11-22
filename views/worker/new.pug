@@ -1,0 +1,17 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.bigTopSpace
+        form(name="p" action="/worker/tareas" , method="POST" enctype="multipart/form-data")
+            div
+                label(for="nombre") REF
+                select(class="form-control" name="ref",id="ref")
+                    each x in tareas
+                        option(value=x.ref)=x.ref
+            div(class = "form-group")
+                label(for="ref") ESTADO
+                input(type = "text", name = "estado",placeholder = "estado",id="estado", class = "form-control" required="")
+            div(class="row topSpace")
+                div(class="col-sm-10 col-xs-10 text-left")
+                    input(type = "submit"  value = "Enviar" class = "btn btn-info")
+                

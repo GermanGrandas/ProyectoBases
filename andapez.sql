@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 16, 2017 at 05:11 PM
--- Server version: 5.7.17-log
--- PHP Version: 5.6.30
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-11-2017 a las 02:33:21
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,37 +19,58 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `andapez`
+-- Base de datos: `andapez`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `calzado`
+-- Estructura de tabla para la tabla `calzado`
 --
 
 CREATE TABLE `calzado` (
+  `id` int(11) NOT NULL,
   `ref` int(11) NOT NULL,
   `matSuela` int(11) NOT NULL,
-  `matCorte` int(11) NOT NULL
+  `matCorte` int(11) NOT NULL,
+  `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `calzado`
+--
+
+INSERT INTO `calzado` (`id`, `ref`, `matSuela`, `matCorte`, `precio`) VALUES
+(1, 124, 1, 2, 0),
+(2, 126, 2, 1, 0),
+(6, 135, 2, 3, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `corte`
+-- Estructura de tabla para la tabla `corte`
 --
 
 CREATE TABLE `corte` (
   `id` int(11) NOT NULL,
-  `idMaterial` int(11) NOT NULL,
+  `materialC` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `idProv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `corte`
+--
+
+INSERT INTO `corte` (`id`, `materialC`, `idProv`) VALUES
+(1, 'Cuero', 1),
+(2, 'sintetico', 3),
+(3, 'charol', 7),
+(4, 'sasa', 8);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cuentas`
+-- Estructura de tabla para la tabla `cuentas`
 --
 
 CREATE TABLE `cuentas` (
@@ -58,38 +81,41 @@ CREATE TABLE `cuentas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `cuentas`
+-- Volcado de datos para la tabla `cuentas`
 --
 
 INSERT INTO `cuentas` (`id`, `idProv`, `idMat`, `valor`) VALUES
-(3, 1, 1, 100),
-(5, 2, 4, 10000);
+(1, 1, 1, 10000),
+(5, 2, 4, 10000),
+(12, 7, 3, 10000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `material`
+-- Estructura de tabla para la tabla `material`
 --
 
 CREATE TABLE `material` (
   `id` int(11) NOT NULL,
-  `name` varchar(20) COLLATE latin1_spanish_ci NOT NULL
+  `name` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `para` varchar(10) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `material`
+-- Volcado de datos para la tabla `material`
 --
 
-INSERT INTO `material` (`id`, `name`) VALUES
-(1, 'PVC'),
-(2, 'neolite'),
-(3, 'cuero'),
-(4, 'sintético');
+INSERT INTO `material` (`id`, `name`, `para`) VALUES
+(1, 'PVC', 'suela'),
+(2, 'neolite', 'suela'),
+(3, 'cuero', 'corte'),
+(4, 'sintético', 'corte'),
+(5, 'sasa', 'cuero');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedor`
+-- Estructura de tabla para la tabla `proveedor`
 --
 
 CREATE TABLE `proveedor` (
@@ -102,30 +128,59 @@ CREATE TABLE `proveedor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `proveedor`
+-- Volcado de datos para la tabla `proveedor`
 --
 
 INSERT INTO `proveedor` (`id`, `RUT`, `nombre`, `direccion`, `tel`, `ciudad`) VALUES
-(1, 15487, 'prov1', 'dhokjjoja', 12345, 'Cali'),
 (2, 15487897, 'SuelasA', 'mz c cs 4878', 7878978, 'cali'),
-(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali');
+(7, 102878, 'Casermir', 'Cs 1254 CS 121', 14787897, 'Cali'),
+(8, 213, 'sasa', 'mc c cs 10', 23421, 'Pereira');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suelas`
+-- Estructura de tabla para la tabla `suelas`
 --
 
 CREATE TABLE `suelas` (
   `id` int(11) NOT NULL,
-  `idMaterial` int(11) NOT NULL,
+  `materialS` varchar(11) COLLATE latin1_spanish_ci NOT NULL,
   `idProv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `suelas`
+--
+
+INSERT INTO `suelas` (`id`, `materialS`, `idProv`) VALUES
+(1, 'PVC', 1),
+(2, 'neolite', 3),
+(4, 'plastico', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `tareas`
+--
+
+CREATE TABLE `tareas` (
+  `id` int(11) NOT NULL,
+  `ref` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `estado` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tareas`
+--
+
+INSERT INTO `tareas` (`id`, `ref`, `cantidad`, `estado`) VALUES
+(7, 135, 32, 'SIN TERMINAR');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -135,107 +190,122 @@ CREATE TABLE `usuarios` (
   `tel` int(11) NOT NULL,
   `username` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
   `password` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `diseños` int(11) DEFAULT NULL,
-  `pares` int(11) DEFAULT NULL,
-  `refcalzado` int(11) DEFAULT NULL
+  `disenos` int(11) DEFAULT NULL,
+  `pares` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`DNI`, `nombre`, `usertype`, `tel`, `username`, `password`, `diseños`, `pares`, `refcalzado`) VALUES
-(1, 'Germán', 'administrador', 311321, 'admin', 'root', NULL, NULL, NULL),
-(213123, 'nilson', 'obrero', 1232131, 'nilson', '12345', NULL, 121, 1),
-(1239884776, 'German', 'obrero', 3157484, 'gg', '1212', NULL, NULL, NULL);
+INSERT INTO `usuarios` (`DNI`, `nombre`, `usertype`, `tel`, `username`, `password`, `disenos`, `pares`) VALUES
+(1, 'Germán', 'administrador', 311321, 'admin', 'root', NULL, NULL),
+(213123, 'nilson', 'obrero', 1232131, 'nilson', '12345', NULL, 122),
+(18276537, 'Juan ', 'diseñador', 321213, 'juand', 'root', 3, NULL);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `calzado`
+-- Indices de la tabla `calzado`
 --
 ALTER TABLE `calzado`
-  ADD PRIMARY KEY (`ref`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `matSuela` (`matSuela`),
-  ADD KEY `matCorte` (`matCorte`),
-  ADD KEY `ref` (`ref`) USING BTREE;
+  ADD KEY `matCorte` (`matCorte`);
 
 --
--- Indexes for table `corte`
+-- Indices de la tabla `corte`
 --
 ALTER TABLE `corte`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idMaterial` (`idMaterial`),
   ADD KEY `idProv` (`idProv`);
 
 --
--- Indexes for table `cuentas`
+-- Indices de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `material`
+-- Indices de la tabla `material`
 --
 ALTER TABLE `material`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `proveedor`
+-- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `suelas`
+-- Indices de la tabla `suelas`
 --
 ALTER TABLE `suelas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idProv` (`idProv`),
-  ADD KEY `idMaterial` (`idMaterial`);
+  ADD KEY `idProv` (`idProv`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`DNI`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `calzado`
+-- AUTO_INCREMENT de la tabla `calzado`
 --
 ALTER TABLE `calzado`
-  MODIFY `ref` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
--- AUTO_INCREMENT for table `corte`
+-- AUTO_INCREMENT de la tabla `corte`
 --
 ALTER TABLE `corte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
--- AUTO_INCREMENT for table `cuentas`
+-- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
--- AUTO_INCREMENT for table `material`
+-- AUTO_INCREMENT de la tabla `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `proveedor`
+-- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
--- AUTO_INCREMENT for table `suelas`
+-- AUTO_INCREMENT de la tabla `suelas`
 --
 ALTER TABLE `suelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

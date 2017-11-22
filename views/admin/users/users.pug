@@ -6,13 +6,18 @@ block contenido
             .col-md-6
                 h1 Nombre
             .col-md-4
-                a(href ="/admin/users/new",class= "btn btn-default btn-lg") Nuevo
+                h1 Cargo
         each x in users
             .white.border.tr.large-padding
                 .row
-                    .col-md-10
+                    .col-md-6
                         h2=x.nombre
+                    .col-md-4
+                        h2=x.usertype
                     .col-md-2               
                         a(href='/admin/users/'+x.DNI+'/edit',class= "btn btn-primary") Editar
                         form(action='/admin/users/'+x.DNI+'?_method=DELETE' class = "link" method = "POST")
                             input(type = "submit" value = "eliminar" class="btn btn-danger")
+        .row
+            .col-md-10
+                a(href ="/admin/users/new",class= "btn btn-default btn-lg") Nuevo Trabajador

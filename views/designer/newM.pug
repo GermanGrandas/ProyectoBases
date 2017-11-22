@@ -1,0 +1,23 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.TopSpace
+        h1 Nuevo Material
+        form(name="p" action="/designer/material" , method="POST" enctype="multipart/form-data")
+            div
+                label(for="tipo") Para
+                select(class="form-control" name="tipo",id="tipo")
+                        option(value="suela") suela
+                        option(value="cuero") corte
+            div
+                label(for="nombre") Nombre
+                input(type = "text", name = "nombre",placeholder = "nombre",id="nombre", class = "form-control" required="")
+            div
+                label(for="prov") Proveedor
+                select(class="form-control" name="prov",id="prov")
+                    each x in prov
+                        option(value=x.id)=x.nombre
+            div(class="row topSpace")
+                div(class="col-sm-10 col-xs-10 text-left")
+                    input(type = "submit"  value = "Enviar" class = "btn btn-info")
+

@@ -1,0 +1,27 @@
+extends ./layout.pug
+
+block contenido
+    .col-md-8.removeFloat.center-block.text-center.bigTopSpace
+        .row 
+            .col-md-3
+                h1 REF
+            .col-md-4
+                h1 Cantidad
+            .col-md-3
+                h1 Estado
+        each x in d
+            .white.border.tr.large-padding
+                .row
+                    .col-md-3
+                        h2=x.ref
+                    .col-md-4
+                        h2=x.cantidad
+                    .col-md-3
+                        h2=x.estado
+                    .col-md-1             
+                        a(href='/admin/produccion/'+x.id+'/edit',class= "btn btn-primary") Editar
+                        form(action='/admin/produccion/'+x.id+'?_method=DELETE' class = "link" method = "POST")
+                            input(type = "submit" value = "eliminar" class="btn btn-danger")
+        .row.topSpace
+            .col-md-6
+                a(href ="/admin/produccion/new",class= "btn btn-default btn-lg") Nueva Tarea

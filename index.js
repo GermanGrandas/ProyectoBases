@@ -9,7 +9,7 @@ const mysql = require("mysql")
 const con =mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "usuarioutp",
+    password: "",
     database :"andapez"
 })
 
@@ -19,6 +19,8 @@ con.connect(function(err) {
 const app = express();
 
 const routerAdmin = require("./routers/routerAdmin");
+const routerD = require("./routers/routerD");
+const routerW = require("./routers/routerW");
 
 app.use(methodOverride("_method"));
 app.set("view engine","pug");
@@ -47,8 +49,13 @@ app.post("/sessions",function(req,res) {
             res.redirect("/login");
         }else{
             req.session.userID = result[0].DNI;
+            req.session.userType = result[0].usertype;
             if(result[0].usertype=='administrador'){
-            res.redirect("/admin");
+                res.redirect("/admin");
+            }else if(result[0].usertype=='diseñador'){
+                res.redirect("/designer");
+            }else if(result[0].usertype=='obrero'){
+                res.redirect("/worker");
             }else
                 res.redirect("login");
             }
@@ -56,4 +63,8 @@ app.post("/sessions",function(req,res) {
 });
 app.use("/admin",sessionMiddleware);
 app.use("/admin",routerAdmin);
+app.use("/designer",sessionMiddleware);
+app.use("/designer",routerD);
+app.use("/worker",sessionMiddleware);
+app.use("/worker",routerW);
 app.listen(8080);

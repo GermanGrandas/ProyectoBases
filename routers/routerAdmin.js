@@ -5,7 +5,7 @@ const mysql = require("mysql")
 const con =mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "usuarioutp",
+    password: "",
     database :"andapez"
 })
 
@@ -61,7 +61,7 @@ router.route("/users").get(function(req,res) {
         }
     });
 }).post(function(req,res) {
-   let sql = "INSERT INTO usuarios(DNI,nombre,usertype,tel,username,password,diseños,pares,refcalzado) VALUES (\'"+req.body.cedula+"\', \'"+req.body.nombre+"\', \'"+req.body.tipo+"\', \'"+req.body.telefono+"\', \'"+req.body.username+"\', \'"+req.body.password+"\', NULL, NULL, NULL)";
+   let sql = "INSERT INTO usuarios(DNI,nombre,usertype,tel,username,password,diseños,pares) VALUES (\'"+req.body.cedula+"\', \'"+req.body.nombre+"\', \'"+req.body.tipo+"\', \'"+req.body.telefono+"\', \'"+req.body.username+"\', \'"+req.body.password+"\', NULL, NULL, NULL)";
     con.query(sql,function(err,result) {
         if(err) throw err;
     });
@@ -72,14 +72,22 @@ router.get("/bills/:id/edit",function(req,res){
     let sql = "SELECT * FROM cuentas WHERE cuentas.id=?";
     con.query(sql,[req.params.id],function(err,result){
         if(err) throw err;
-        else{
-            res.render("admin/bills/edit",{bills:result});
-        }
+        sql = "SELECT * FROM proveedor";
+        con.query(sql,function(err,result1){
+            if(err) throw err;
+            sql="SELECT * FROM material";
+            con.query(sql,function(err,result2){
+                if(err) throw err;
+                else{
+                    res.render("admin/bills/edit",{bills:result,prov:result1,mat:result2});
+                    }
+            });
+        });
     }); 
 });
 router.route("/bills/:id").put(function(req,res){
-    let sql="UPDATE cuentas SET idProv = ? WHERE cuentas.id = ?";
-    con.query(sql,[req.params.nombre,req.params.nombre],function(err,result){
+    let sql="UPDATE cuentas SET idProv = ?,idMat=?,valor=? WHERE cuentas.id = ?";
+    con.query(sql,[req.body.proveedor,req.body.material,req.body.valor,req.params.id],function(err,result){
         if(err) throw err;
         else{
             res.redirect("/admin/bills");
@@ -96,7 +104,15 @@ router.get("/bills/newP",function(req,res) {
     res.render("admin/bills/newP");
 });
 router.get("/bills/newC",function(req,res) {
-    res.render("admin/bills/newC");
+    var sql = "SELECT * FROM proveedor";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+        sql= "SELECT * FROM material";
+        con.query(sql,function(err,result2){
+            if(err) throw err;
+            res.render("admin/bills/newC",{prov:result,mat:result2});
+        });
+    });
 });
 router.get("/bills/showP",function(req,res){
     let sql = "SELECT * FROM proveedor";
@@ -109,11 +125,12 @@ router.get("/bills/showP",function(req,res){
     
 });
 router.post("/cuenta",function(req,res){
-    let sql = "INSERT INTO cuentas (id,idProv,idMat,valor) VALUES(NULL,\'"+req.body.proveedor+'\', \''+req.body.material+"\', \'"+req.body.valor+"\')";
+    var sql = "INSERT INTO cuentas (id,idProv,idMat,valor) VALUES(NULL,\'"+req.body.proveedor+'\', \''+req.body.material+"\', \'"+req.body.valor+"\')";
     con.query(sql,function(err,result){
         if(err) throw err;
+        res.redirect("/admin/bills");
     });
-    res.redirect("/admin/bills");
+    
 });
 router.route("/bills").get(function(req,res){
     let sql = "SELECT cuentas.id , proveedor.nombre , material.name, cuentas.valor FROM (cuentas INNER JOIN material ON material.id=cuentas.idMat) INNER JOIN proveedor ON proveedor.id=cuentas.idProv";
@@ -130,4 +147,51 @@ router.route("/bills").get(function(req,res){
     });
     res.redirect("/admin/bills");
 });
+
+router.route("/produccion").get(function(req,res){
+    var sql = "SELECT * FROM tareas";
+    con.query(sql,function(err,result){
+        res.render("admin/production/production",{d:result});
+    });
+}).post(function(req,res){
+    var sql = 'INSERT INTO tareas (`id`, `ref`, `cantidad`,estado) VALUES (NULL,\''+ req.body.ref+"\', \'"+req.body.cant+"\','SIN TERMINAR')";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/produccion");
+    });
+});
+router.get("/produccion/new",function(req,res){
+    var sql = "SELECT * FROM calzado";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+        res.render("admin/production/new",{calzado : result});
+    });
+});
+router.get("/produccion/:id/edit",function(req,res){
+    var sql = "SELECT * FROM tareas";
+    con.query(sql,function(err,result){
+        if(err) throw err;
+        sql = "SELECT * FROM calzado";
+        con.query(sql,function(err,result2){
+            if(err) throw err;
+            res.render("admin/production/edit",{tareas:result,calzado:result2});
+        });
+    });
+});
+router.route("/produccion/:id").put(function(req,res){
+    var sql="UPDATE `tareas` SET `ref` = ?, `cantidad` = ? WHERE `tareas`.`id` =?";
+    con.query(sql,[req.body.ref,req.body.cant,req.params.id],function(err,result){
+        if(err) throw err;
+        else{
+            res.redirect("/admin/produccion");
+        }
+    });
+}).delete(function(req,res){
+    let sql ="DELETE FROM tareas WHERE tareas.id =?";
+    con.query(sql,[req.params.id],function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/produccion");
+    });
+});
+
 module.exports = router;
