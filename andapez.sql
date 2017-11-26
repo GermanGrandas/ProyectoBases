@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2017 a las 02:33:21
+-- Tiempo de generación: 27-11-2017 a las 00:38:44
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.10
 
@@ -32,18 +32,19 @@ CREATE TABLE `calzado` (
   `id` int(11) NOT NULL,
   `ref` int(11) NOT NULL,
   `matSuela` int(11) NOT NULL,
-  `matCorte` int(11) NOT NULL,
-  `precio` int(11) NOT NULL
+  `matCorte` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `calzado`
 --
 
-INSERT INTO `calzado` (`id`, `ref`, `matSuela`, `matCorte`, `precio`) VALUES
-(1, 124, 1, 2, 0),
-(2, 126, 2, 1, 0),
-(6, 135, 2, 3, 0);
+INSERT INTO `calzado` (`id`, `ref`, `matSuela`, `matCorte`) VALUES
+(1, 124, 1, 2),
+(2, 126, 2, 1),
+(6, 135, 2, 3),
+(7, 154, 4, 3),
+(8, 136, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ INSERT INTO `corte` (`id`, `materialC`, `idProv`) VALUES
 (1, 'Cuero', 1),
 (2, 'sintetico', 3),
 (3, 'charol', 7),
-(4, 'sasa', 8);
+(4, 'sasa', 8),
+(5, 'napa', 7);
 
 -- --------------------------------------------------------
 
@@ -110,7 +112,8 @@ INSERT INTO `material` (`id`, `name`, `para`) VALUES
 (2, 'neolite', 'suela'),
 (3, 'cuero', 'corte'),
 (4, 'sintético', 'corte'),
-(5, 'sasa', 'cuero');
+(5, 'sasa', 'cuero'),
+(6, 'napa', 'cuero');
 
 -- --------------------------------------------------------
 
@@ -175,7 +178,8 @@ CREATE TABLE `tareas` (
 --
 
 INSERT INTO `tareas` (`id`, `ref`, `cantidad`, `estado`) VALUES
-(7, 135, 32, 'SIN TERMINAR');
+(7, 135, 32, 'SIN TERMINAR'),
+(8, 124, 12, 'SIN TERMINAR');
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`DNI`, `nombre`, `usertype`, `tel`, `username`, `password`, `disenos`, `pares`) VALUES
 (1, 'Germán', 'administrador', 311321, 'admin', 'root', NULL, NULL),
 (213123, 'nilson', 'obrero', 1232131, 'nilson', '12345', NULL, 122),
-(18276537, 'Juan ', 'diseñador', 321213, 'juand', 'root', 3, NULL);
+(18276537, 'Juan ', 'diseñador', 321213, 'juand', 'root', 5, NULL),
+(1239884776, 'GErmán', 'obrero', 312466, 'gg', '12345', NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -267,13 +272,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `calzado`
 --
 ALTER TABLE `calzado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `corte`
 --
 ALTER TABLE `corte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
@@ -285,7 +290,7 @@ ALTER TABLE `cuentas`
 -- AUTO_INCREMENT de la tabla `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -303,7 +308,7 @@ ALTER TABLE `suelas`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

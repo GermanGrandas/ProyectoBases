@@ -61,7 +61,7 @@ router.route("/users").get(function(req,res) {
         }
     });
 }).post(function(req,res) {
-   let sql = "INSERT INTO usuarios(DNI,nombre,usertype,tel,username,password,diseños,pares) VALUES (\'"+req.body.cedula+"\', \'"+req.body.nombre+"\', \'"+req.body.tipo+"\', \'"+req.body.telefono+"\', \'"+req.body.username+"\', \'"+req.body.password+"\', NULL, NULL, NULL)";
+   let sql = "INSERT INTO usuarios(DNI,nombre,usertype,tel,username,password,disenos,pares) VALUES (\'"+req.body.cedula+"\', \'"+req.body.nombre+"\', \'"+req.body.tipo+"\', \'"+req.body.telefono+"\', \'"+req.body.username+"\', \'"+req.body.password+"\', NULL, NULL)";
     con.query(sql,function(err,result) {
         if(err) throw err;
     });

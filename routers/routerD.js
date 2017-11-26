@@ -35,7 +35,7 @@ router.get("/new",function(req,res){
     });
 });
 router.post("/design",function(req,res){
-    var sql = "INSERT INTO `calzado` (`id`, `ref`, `matSuela`, `matCorte`,precio) VALUES (NULL,\'"+req.body.ref+'\', \''+req.body.tipoS+"\', \'"+req.body.tipoC+"\',NULL)";
+    var sql = "INSERT INTO `calzado` (`id`, `ref`, `matSuela`, `matCorte`) VALUES (NULL,\'"+req.body.ref+'\', \''+req.body.tipoS+"\', \'"+req.body.tipoC+"\')";
     con.query(sql,function(err,result){
         if(err) throw err;
         sql ="UPDATE usuarios SET disenos=? WHERE DNI=?";

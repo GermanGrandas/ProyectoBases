@@ -4,6 +4,8 @@ const CookieSession = require("cookie-session");
 const methodOverride = require("method-override");
 const formidable = require("express-form-data");
 const sessionMiddleware = require("./middleware/session");
+const rMiddleware= require("./middleware/r");
+
 // Conexión Base de datos
 const mysql = require("mysql")
 const con =mysql.createConnection({
@@ -61,10 +63,13 @@ app.post("/sessions",function(req,res) {
             }
         });
 });
+app.use("/admin",rMiddleware);
 app.use("/admin",sessionMiddleware);
 app.use("/admin",routerAdmin);
 app.use("/designer",sessionMiddleware);
+app.use("/designer",rMiddleware);
 app.use("/designer",routerD);
 app.use("/worker",sessionMiddleware);
+app.use("/worker",rMiddleware);
 app.use("/worker",routerW);
 app.listen(8080);
